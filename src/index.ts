@@ -10,7 +10,6 @@ import * as typeOrmConfig from './config/typeorm.config';
 import { GraphqlContext, initRepositories } from './config/graphql-context';
 import { getServerInfo } from './services/server-info.service';
 
-import { SampleResolver } from './resolvers/sample.resolver';
 import { BookResolver } from './resolvers/book.resolver';
 import { CategoryResolver } from './resolvers/category.resolver';
 import { PersonResolver } from './resolvers/person.resolver';
@@ -21,7 +20,7 @@ const bootstrap = async (): Promise<void> => {
     const connectionDatabase = await createConnection(typeOrmConfig);
 
     const schema = await buildSchema({
-      resolvers: [SampleResolver, CategoryResolver, BookResolver, PersonResolver, NotificationResolver],
+      resolvers: [CategoryResolver, BookResolver, PersonResolver, NotificationResolver],
     });
 
     const server = new ApolloServer({
