@@ -46,9 +46,6 @@ export class Book extends Product {
   })
   categories: Category[];
 
-  @RelationId((book: Book) => book.categories)
-  categoryIds: number[];
-
   @ManyToOne(() => Person)
   @JoinColumn()
   @Field(() => Person)

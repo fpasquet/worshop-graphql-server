@@ -9,6 +9,6 @@ import { Person } from '../models/person';
 export class PersonResolver implements ResolverInterface<Person> {
   @FieldResolver(() => [Book], { name: 'books' })
   async books(@Root() person: Person, @Ctx() { repositories: { bookRepository } }: GraphqlContext): Promise<Book[]> {
-    return bookRepository.find({ authorId: person.id });
+    return bookRepository.findByPersonIdDataLoader().load(person.id);
   }
 }

@@ -19,11 +19,11 @@ export class BookResolver extends BookCrudResolver {
     @Root() book: Book,
     @Ctx() { repositories: { categoryRepository } }: GraphqlContext,
   ): Promise<Category[]> {
-    return book.categoryIds.length > 0 ? categoryRepository.find({ id: In(book.categoryIds) }) : [];
+    return categoryRepository.findByBookIdDataLoader().load(book.id);
   }
 
   @FieldResolver(() => Person, { name: 'author' })
   async author(@Root() book: Book, @Ctx() { repositories: { personRepository } }: GraphqlContext): Promise<Person> {
-    return personRepository.findOne(book.authorId);
+    return personRepository.findOneByPersonIdDataLoader().load(book.authorId);
   }
 }
